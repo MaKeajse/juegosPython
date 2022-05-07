@@ -1,3 +1,4 @@
+from cProfile import label
 from tkinter import *
 from tkinter import font
 from tkinter import messagebox as msg
@@ -51,15 +52,20 @@ palabrita = StringVar()
 #desorden = r.sample(nueva,len(nueva))
 
 
-vnta.geometry("300x300")
-caja = Entry(vnta, textvariable= info, width=10, bg="#B7F1F7", fg="black", font=("Arial",18, "bold")).place(x=80, y=80)
+vnta.geometry("400x240")
+vnta.config(bg="#C7F9F4")
+vnta.title("Adivina la Palabra")
+vnta.maxsize(width=400, height=240)
 
-palabra = Label(vnta, textvariable=palabrita, font=("Arial", 22, "bold")).place(x=20, y=20)
+espacio = Label(vnta,bg="#C7F9F4").pack()
+palabra = Label(vnta, textvariable=palabrita, font=("Arial", 22, "bold"), bg="#86EFFB").pack(fill="x")
 
-boton = Button(vnta, text="Mostrar", font=("Arial", 16), command=mostrar).place(x=20, y=130)
+caja = Entry(vnta, textvariable= info, width=22, fg="black", font=("Arial",20, "bold")).place(x=30, y=85)
 
-botonI = Button(vnta, text="Nueva Partida", font=("Arial", 16), command=lambda: nuevaPartida()).place(x=120, y=130)
+boton = Button(vnta, text="Mostrar", font=("Arial", 16), command=mostrar).place(x=80, y=150)
 
+botonI = Button(vnta, text="Nueva Partida", font=("Arial", 16), command=lambda: nuevaPartida()).place(x=180, y=150)
 
+realizado = Label(vnta, text="Realizado por Laura Juliana Serrano García - Makeajse", bg="#C7F9F4").pack(side="bottom")
 
 vnta.mainloop()
