@@ -13,16 +13,22 @@ def mostrar():
     if variable.upper() == nueva:
         msg.showinfo("Mensaje", "Correcto")
         #palabrita.set("")
-        variable = info.set("")
-        continuar = simpledialog.askstring("CONTINUAR","Desea continuar ingrese (s): ").upper()
-        if continuar == "S":
-            nuevaPartida()
-        else:
+        variable = info.set("")      
+
+        try:
+            continuar = simpledialog.askstring("CONTINUAR","Desea continuar ingrese (s): ").upper()
+            if continuar == "S":
+                nuevaPartida()
+            else:
+                msg.showinfo("Mensaje", "El juego ha terminado")
+                vnta.destroy()
+        except Exception as ex:
             msg.showinfo("Mensaje", "El juego ha terminado")
             vnta.destroy()
             
     else:
         msg.showinfo("Mensaje", "Palabra Equivocada")
+        variable = info.set("")
 
 def nuevaPartida():    
     #msg.showinfo("Mensaje", "Prueba")
