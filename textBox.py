@@ -39,6 +39,10 @@ def nuevaPartida():
     desorden = r.sample(nueva,len(nueva))
     palabrita.set(desorden)
     return nueva
+
+def reorganiza():
+    desorden = r.sample(nueva,len(nueva))
+    palabrita.set(desorden)
     
 
 
@@ -62,9 +66,11 @@ palabra = Label(vnta, textvariable=palabrita, font=("Arial", 22, "bold"), bg="#8
 
 caja = Entry(vnta, textvariable= info, width=22, fg="black", font=("Arial",20, "bold")).place(x=30, y=85)
 
-boton = Button(vnta, text="Mostrar", font=("Arial", 16), command=mostrar).place(x=80, y=150)
+boton = Button(vnta, text="Mostrar", font=("Arial", 14), command=mostrar).place(x=10, y=150)
 
-botonI = Button(vnta, text="Nueva Partida", font=("Arial", 16), command=lambda: nuevaPartida()).place(x=180, y=150)
+botonI = Button(vnta, text="Nueva Partida", font=("Arial", 14), command=lambda: nuevaPartida()).place(x=110, y=150)
+
+botonR = Button(vnta, text="Reorganizar", font=("Arial", 14), command=lambda: reorganiza()).place(x=260, y=150)
 
 realizado = Label(vnta, text="Realizado por Laura Juliana Serrano García - Makeajse", bg="#C7F9F4").pack(side="bottom")
 
