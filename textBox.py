@@ -1,9 +1,10 @@
 from tkinter import *
 from tkinter import font
 from tkinter import messagebox as msg
+from tkinter import simpledialog
 import random as r
 
-
+vnta = Tk()
 
 def mostrar():
     variable = info.get()
@@ -12,6 +13,14 @@ def mostrar():
     if variable.upper() == nueva:
         msg.showinfo("Mensaje", "Correcto")
         #palabrita.set("")
+        variable = info.set("")
+        continuar = simpledialog.askstring("CONTINUAR","Desea continuar ingrese (s): ").upper()
+        if continuar == "S":
+            nuevaPartida()
+        else:
+            msg.showinfo("Mensaje", "El juego ha terminado")
+            vnta.destroy()
+            
     else:
         msg.showinfo("Mensaje", "Palabra Equivocada")
 
@@ -25,7 +34,7 @@ def nuevaPartida():
     return nueva
     
 
-vnta = Tk()
+
 
 #Crear variable a utilizar en la caja (Declaración de variable)
 info = StringVar()
