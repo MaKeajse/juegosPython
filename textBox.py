@@ -7,10 +7,11 @@ import random as r
 
 def mostrar():
     variable = info.get()
+    #nueva = nueva
     #msg.showinfo("Mensaje", variable)
-    if variable.upper() == nueva.upper():
+    if variable.upper() == nueva:
         msg.showinfo("Mensaje", "Correcto")
-       
+        #palabrita.set("")
     else:
         msg.showinfo("Mensaje", "Palabra Equivocada")
 
@@ -21,6 +22,7 @@ def nuevaPartida():
     nueva=listaPalabras[r.randint(0,len(listaPalabras)-1)]
     desorden = r.sample(nueva,len(nueva))
     palabrita.set(desorden)
+    return nueva
     
 
 vnta = Tk()
