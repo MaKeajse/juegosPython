@@ -46,9 +46,11 @@ def mostrar():
 def nuevaPartida():    
     #msg.showinfo("Mensaje", "Prueba")
     global nueva
-    listaPalabras = ("SANTIDAD","CAMINO","DIOS","UNIDAD")
+    listaPalabras = ["SANTIDAD","CAMINO","DIOS","UNIDAD", "HUMILDAD", "VERDAD", "AMOR", "VIDA"]
     nueva=listaPalabras[r.randint(0,len(listaPalabras)-1)]
     desorden = r.sample(nueva,len(nueva))
+    if desorden == nueva:
+        desorden = r.sample(nueva,len(nueva))
     palabrita.set(desorden)
     return nueva
 
@@ -59,8 +61,6 @@ def reorganiza():
     palabrita.set(desorden)
     
 
-
-
 #Crear variable a utilizar en la caja (Declaración de variable)
 info = StringVar()
 palabrita = StringVar()
@@ -68,7 +68,6 @@ palabrita = StringVar()
 #listaPalabras = ("SANTIDAD","CAMINO","DIOS","UNIDAD")
 #nueva=listaPalabras[r.randint(0,len(listaPalabras)-1)]
 #desorden = r.sample(nueva,len(nueva))
-
 
 vnta.geometry("400x240")
 vnta.config(bg="#C7F9F4")
