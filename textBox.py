@@ -1,9 +1,12 @@
 from cProfile import label
+from email import message
+from re import A
 from tkinter import *
 from tkinter import font
 from tkinter import messagebox as msg
 from tkinter import simpledialog
 import random as r
+from tkinter.messagebox import askyesno
 
 vnta = Tk()
 
@@ -17,12 +20,21 @@ def mostrar():
         variable = info.set("")      
 
         try:
-            continuar = simpledialog.askstring("CONTINUAR","Desea continuar ingrese (s): ").upper()
-            if continuar == "S":
+            #continuar = simpledialog.askstring("CONTINUAR","Desea continuar ingrese (s): ").upper()
+            answer = askyesno(title='confirmation',
+                    message='Desea Continuar?')
+
+            if answer:
                 nuevaPartida()
+
             else:
                 msg.showinfo("Mensaje", "El juego ha terminado")
                 vnta.destroy()
+            """if continuar == "S":
+                nuevaPartida()
+            else:
+                msg.showinfo("Mensaje", "El juego ha terminado")
+                vnta.destroy()"""
         except Exception as ex:
             msg.showinfo("Mensaje", "El juego ha terminado")
             vnta.destroy()
@@ -42,6 +54,8 @@ def nuevaPartida():
 
 def reorganiza():
     desorden = r.sample(nueva,len(nueva))
+    if desorden == nueva:
+        desorden = r.sample(nueva,len(nueva))
     palabrita.set(desorden)
     
 
@@ -66,9 +80,9 @@ palabra = Label(vnta, textvariable=palabrita, font=("Arial", 22, "bold"), bg="#8
 
 caja = Entry(vnta, textvariable= info, width=22, fg="black", font=("Arial",20, "bold")).place(x=30, y=85)
 
-boton = Button(vnta, text="Mostrar", font=("Arial", 14), command=mostrar).place(x=10, y=150)
+boton = Button(vnta, text="Mostrar", font=("Arial", 14), command=mostrar).place(x=20, y=150)
 
-botonI = Button(vnta, text="Nueva Partida", font=("Arial", 14), command=lambda: nuevaPartida()).place(x=110, y=150)
+botonI = Button(vnta, text="Nueva Partida", font=("Arial", 14), command=lambda: nuevaPartida()).place(x=115, y=150)
 
 botonR = Button(vnta, text="Reorganizar", font=("Arial", 14), command=lambda: reorganiza()).place(x=260, y=150)
 
