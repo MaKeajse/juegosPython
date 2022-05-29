@@ -11,6 +11,7 @@ def iniciarP():
     global player1, player2, turno, inicio
 
     reiniciarJuego()
+    continuar.config(state="normal")
 
     try:
         player1 = simpledialog.askstring("Jugador 1","Escriba el nombre del jugador 1: ").upper()
