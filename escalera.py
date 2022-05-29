@@ -8,7 +8,7 @@ from turtle import pos
 
 
 def iniciarP():
-    global player1, player2, turno
+    global player1, player2, turno, inicio
 
     reiniciarJuego()
 
@@ -24,9 +24,9 @@ def iniciarP():
     except Exception as ex:
         messagebox.showinfo("FIN", "FIN DEL JUEGO")   
     
-    shiftPlayer.set(player1)
+    shiftPlayer.set("TURNO: " + player1)
     turno = 0
-    botones[0].config(bg="#B06CE8", text="""INICIO
+    botones[0].config(bg=inicio, text="""INICIO
     😁😼""")
 
 def tirarDados():
@@ -102,16 +102,14 @@ def tirarDados():
             if posicionFinJug1 == posicionFinJug2:
                 botones[posicionFinJug1].config(bg=empate, text=f"{posicionFinJug1} 😁😼")
             else:
-                botones[posicionFinJug1].config(bg=turnoJug1, text=f"{posicionFinJug1} 😁")
-
+                botones[posicionFinJug1].config(bg=turnoJug1, text=f"{posicionFinJug1} 😁")      
+        turno = 1
+        shiftPlayer.set("TURNO: " + player2)
 
         if posicionFinJug1 == 31:
             messagebox.showinfo("GANADOR","¡¡¡FELICITACIONES " + player1 + " HAS GANADOR")
             bloquearTirarDados()
-
-        
-        turno = 1
-        shiftPlayer.set(player2)
+            shiftPlayer.set("GANADOR: " + player1)
     
     elif turno==1:
         #messagebox.showinfo("Posicion", posicionFinJug2)
@@ -180,14 +178,15 @@ def tirarDados():
             if posicionFinJug2 == posicionFinJug1:
                 botones[posicionFinJug2].config(bg=empate, text=f"{posicionFinJug2} 😁😼")
             else:
-                botones[posicionFinJug2].config(bg=turnoJug2, text=f"{posicionFinJug2} 😼")
+                botones[posicionFinJug2].config(bg=turnoJug2, text=f"{posicionFinJug2} 😼")        
+        
+        turno = 0
+        shiftPlayer.set("TURNO: " + player1)
 
         if posicionFinJug2 == 31:
             messagebox.showinfo("GANADOR","¡¡¡FELICITACIONES " + player2 + " HAS GANADOR")
             bloquearTirarDados()
-        
-        turno = 0
-        shiftPlayer.set(player1)
+            shiftPlayer.set("GANADOR: " + player2)
 
     return posicionFinJug2, posicionFinJug1
 
@@ -237,9 +236,9 @@ meta = "#2E9CF3"
 shiftPlayer = StringVar()
 varBtn1 = StringVar()
 
-turno = Label(vnta, text="TURNO: ", font=("Arial", 14)).place(x=400, y=30)
+#turno = Label(vnta, text="TURNO: ", font=("Arial", 14)).place(x=400, y=30)
 
-turnoTxt = Label(vnta, textvariable=shiftPlayer, font=("Arial",14,"bold"), bg="#D0DDCE").place(x=480, y=30)
+turnoTxt = Label(vnta, textvariable=shiftPlayer, font=("Arial",14,"bold")).place(x=480, y=30)
 
 imag = tkinter.PhotoImage(file="./img/meta.png")
 titulo = Label(vnta, text="JUEGO DE LA ESCALERA", font=("Arial", 14, "bold"), fg="red").place(x=15, y=30)
