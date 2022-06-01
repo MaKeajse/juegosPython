@@ -235,7 +235,6 @@ inicio = "#B06CE8"
 meta = "#2E9CF3"
 
 shiftPlayer = StringVar()
-varBtn1 = StringVar()
 
 #turno = Label(vnta, text="TURNO: ", font=("Arial", 14)).place(x=400, y=30)
 
