@@ -9,14 +9,6 @@ class Ascensor():
     def __init__(self):
         self.pisoActual = 1
 
-    def subir(self):
-        if self.pisoActual <10:
-            self.pisoActual +=1
-    
-    def baja(self):
-        if self.pisoActual > 1:
-            self.pisoActual -= 1  
-
     def ascensorNorte(self):
         pisoAscNorte = ra.randint(1,10)
         return pisoAscNorte
@@ -26,15 +18,25 @@ class Ascensor():
         return pisoAscSur
 
     def llamarAscensor(self):
+        global numPersonas
         asc = simpledialog.askstring('Ascensor',"1. Norte - 2. Sur ")
         if asc == '1':
-            botonesNorte[0].config(bg="violet",state="normal")
+            numPersonas -= 1
+            botonesNorte[0].config(bg="violet",state="normal")            
             botonesSur[0].config(bg=colorAscS, state="disable")
+            btnAscNorte.config(text=f"Ascensor Norte\n 😎")
+            inicio.config(text=f"Llamar Ascensor\n {usuario * numPersonas}")
+            
         elif asc == '2':
+            numPersonas -= 1
             botonesSur[0].config(bg="violet", state="normal")
             botonesNorte[0].config(bg=colorAscN, state="disable")
+            btnAscSur.config(text=f"Ascensor Sur\n 😎")
+            inicio.config(text=f"Llamar Ascensor\n {usuario * numPersonas}")
         else:
             messagebox.showerror("Opción no válida", "Vuelva a intentarlo")
+        
+        return numPersonas
     
     def moverAscensorNorte(self):
         global pisoNorte
@@ -51,22 +53,60 @@ class Ascensor():
         irA = simpledialog.askinteger("Ir a", "¿A qué piso se dirige?")
 
         if irA > pisoActual and irA <= 10:
+            messagebox.showinfo("Estado", "Ascensor Subiendo")
             for i in range(pisoActual, irA):
                 pisoActual += 1
-                botonesNorte[pisoActual].config(bg="green")
-                #time.sleep(0.5)
-                botonesNorte[pisoActual-1].config(bg=coloresAscN)
+                botonesNorte[pisoActual].config(bg="green", text=f"{pisoActual}\n 😎")
+                botonesNorte[pisoActual-1].config(bg=coloresAscN, text=f"{pisoActual-1}")
+                btnAscNorte.config(text=f"Ascensor Norte")
+                
         elif irA < pisoActual and irA >= 1:
+            messagebox.showinfo("Estado", "Ascensor Subiendo")
             while pisoActual > irA:
                 pisoActual -= 1
-                botonesNorte[pisoActual].config(bg="green")
-                botonesNorte[pisoActual+1].config(bg=coloresAscN)
+                botonesNorte[pisoActual].config(bg="green", text=f"{pisoActual}\n 😎")
+                botonesNorte[pisoActual+1].config(bg=coloresAscN, text=f"{pisoActual+1}")
+                btnAscNorte.config(text=f"Ascensor Norte")
                 time.sleep(0.1)
 
 
         pisoNorte = pisoActual
         return pisoNorte
         
+    def moverAscensorSur(self):
+        global pisoSur
+        pisoActual = simpledialog.askinteger("Piso Actual", "¿En qué piso se encuentra?")
+
+        if pisoActual < pisoSur:
+            messagebox.showinfo("Estado", "Ascensor Bajando")
+        else:
+            messagebox.showinfo("Estado", "Ascensor Subiendo")
+
+        botonesSur[pisoSur].config(bg=coloresAscS)
+        botonesSur[pisoActual].config(bg="green")
+
+        irA = simpledialog.askinteger("Ir a", "¿A qué piso se dirige?")
+
+        if irA > pisoActual and irA <= 10:
+            messagebox.showinfo("Estado", "Ascensor Subiendo")
+            for i in range(pisoActual, irA):
+                pisoActual += 1
+                botonesSur[pisoActual].config(bg="green", text=f"{pisoActual}\n 😎")
+                botonesSur[pisoActual-1].config(bg=coloresAscS, text=f"{pisoActual-1}")
+                btnAscSur.config(text=f"Ascensor Sur")
+                
+        elif irA < pisoActual and irA >= 1:
+            messagebox.showinfo("Estado", "Ascensor Subiendo")
+            while pisoActual > irA:
+                pisoActual -= 1
+                botonesSur[pisoActual].config(bg="green", text=f"{pisoActual}\n 😎")
+                botonesSur[pisoActual+1].config(bg=coloresAscS, text=f"{pisoActual+1}")
+                btnAscSur.config(text=f"Ascensor Sur")
+                time.sleep(0.1)
+
+
+        pisoSur = pisoActual
+        return pisoSur
 
 ascen = Ascensor()
 
@@ -83,30 +123,31 @@ colorAscN = "#C7F9F4"
 colorAscS = "#86EFFB"
 coloresAscN = "#F8D8F9"
 coloresAscS = "#B3E6F9"
+numPersonas = simpledialog.askinteger("Usuarios","Número de personas: ")
+usuario = "😎"
 
 pisoNorte = ascen.ascensorNorte()
 pisoSur = ascen.ascensorSur()
 
-btnAscNorte = Button(vnta, text="Ascensor Norte",width=15, height=2,font=("Arial",12,"bold"), bg=colorAscN, command=ascen.moverAscensorNorte)
+btnAscNorte = Button(vnta, text=f"Ascensor Norte",width=15, height=2,font=("Arial",12,"bold"), bg=colorAscN, command=ascen.moverAscensorNorte)
 btnAscNorte.place(x=60, y=600)
 btnAscNorte.config(state="disabled")
 
 botonesNorte.append(btnAscNorte)
 
-btnAscSur = Button(vnta, text="Ascensor Sur",width=15, height=2,font=("Arial",12,"bold"), bg=colorAscS)
+btnAscSur = Button(vnta, text="Ascensor Sur",width=15, height=2,font=("Arial",12,"bold"), bg=colorAscS, command=ascen.moverAscensorSur)
 btnAscSur.place(x=370, y=600)
 btnAscSur.config(state="disabled")
 
 botonesSur.append(btnAscSur)
 
-boton0 = Button(vnta, text="INICIO",width=15, height=3,font=("Arial",12,"bold"), command = ascen.llamarAscensor)
-boton0.place(x=215, y=670)
+inicio = Button(vnta, text=f"Llamar el Ascensor\n {usuario * numPersonas}",width=25, height=3,font=("Arial",12,"bold"), command = ascen.llamarAscensor)
+inicio.place(x=180, y=670)
 
 btnAscN1 = Button(vnta, text="1",width=15, height=2,font=("Arial",12,"bold"), bg=coloresAscN)
 btnAscN1.place(x=60, y=500)
 
 botonesNorte.append(btnAscN1)
-
 
 btnAscN2 = Button(vnta, text="2",width=15, height=2,font=("Arial",12,"bold"), bg=coloresAscN)
 btnAscN2.place(x=60, y=450)
